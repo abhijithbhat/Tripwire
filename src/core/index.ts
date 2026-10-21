@@ -61,3 +61,21 @@ export { weddingPlan } from './fixtures/wedding-120';
 export { birthdayPlan } from './fixtures/birthday-40';
 export { communityPlan } from './fixtures/community-300';
 export { GOLDEN, type GoldenPlanData, type GoldenTimelineItem } from './fixtures/golden';
+
+export { computeRulesCost, type CostLine, type RulesCost } from './cost/rules';
+
+export {
+  isLockActive,
+  billableGuestsFor,
+  computeVendorCost,
+  computePlanCost,
+  type VendorCost,
+  type PlanCost,
+} from './cost/plan-cost';
+
+export {
+  computePaymentTimeline,
+  type PaymentStatus,
+  type PaymentEvent,
+  type PaymentTimeline,
+} from './cost/payments';
