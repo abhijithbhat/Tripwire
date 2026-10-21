@@ -1,0 +1,91 @@
+import type { Plan } from '../domain/schema';
+import {
+  cancel,
+  flat,
+  makePlan,
+  makeVendor,
+  milestone,
+  perGuest,
+  rupees,
+  step,
+  surcharge,
+} from './builders';
+
+export const communityPlan: Plan = makePlan({
+  id: 'community-300',
+  name: 'Ward 12 Cultural Evening',
+  eventType: 'COMMUNITY',
+  currency: 'INR',
+  eventDate: '2026-11-14',
+  asOfDate: '2026-10-28',
+  guestCount: 300,
+  budgetCap: rupees(150_000),
+  priorities: { guests: 5, budget: 3, simplicity: 3 },
+  vendors: [
+    makeVendor({
+      id: 'grounds',
+      name: 'Municipal Community Grounds',
+      category: 'VENUE',
+      capacity: 350,
+      vendorCancelRefund: 'FULL',
+      costRules: [
+        flat('grounds-fee', 'Grounds Fee', rupees(20_000)),
+        flat('permit-safety', 'Permit Safety', rupees(8000)),
+      ],
+      paymentSchedule: [milestone('full', 'Full', 10_000, 7, false)],
+      cancellation: [cancel(7, 0), cancel(0, 10_000)],
+      options: [],
+    }),
+    makeVendor({
+      id: 'kitchen',
+      name: 'Annapoorna Seva Kitchen',
+      category: 'CATERING',
+      vendorCancelRefund: 'UNKNOWN',
+      leadTimeDays: 4,
+      costRules: [
+        perGuest('meals', 'Meals', rupees(120), 200),
+        step('counters', 'Counters', 100, rupees(1500)),
+      ],
+      paymentSchedule: [
+        milestone('advance', 'Advance', 5000, 10, false),
+        milestone('final', 'Final', 5000, 1, false),
+      ],
+      cancellation: [cancel(5, 2000), cancel(0, 10_000)],
+      lock: {
+        lockOffsetDays: 5,
+        reductionsAllowedAfterLock: false,
+        increaseAllowedUntilOffsetDays: 2,
+        increaseTolerancePctBp: 1500,
+      },
+      options: [],
+    }),
+    makeVendor({
+      id: 'av',
+      name: 'Resonance Sound & Lights',
+      category: 'MUSIC_ENTERTAINMENT',
+      vendorCancelRefund: 'UNKNOWN',
+      leadTimeDays: 10,
+      costRules: [flat('rig', 'Rig', rupees(35_000)), surcharge('gst', 'Gst', 1800, 'BASE_ONLY')],
+      paymentSchedule: [
+        milestone('advance', 'Advance', 5000, 14, true),
+        milestone('final', 'Final', 5000, 1, false),
+      ],
+      cancellation: [cancel(14, 2500), cancel(0, 10_000)],
+      options: [],
+    }),
+    makeVendor({
+      id: 'rentals',
+      name: 'Shamiana Rentals',
+      category: 'DECOR',
+      vendorCancelRefund: 'UNKNOWN',
+      leadTimeDays: 7,
+      costRules: [
+        flat('stage', 'Stage', rupees(12_000)),
+        step('chairs', 'Chairs', 10, rupees(150)),
+      ],
+      paymentSchedule: [milestone('full', 'Full', 10_000, 2, false)],
+      cancellation: [cancel(7, 1000), cancel(0, 10_000)],
+      options: [],
+    }),
+  ],
+});
