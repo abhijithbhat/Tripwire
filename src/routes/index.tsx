@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
   component: TripwirePage,
 });
 
-function TripwirePage() {
+export function TripwirePage() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <a
