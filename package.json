@@ -9,9 +9,14 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit -p tsconfig.core.json",
+    "lint:core": "eslint \"src/core/**/*.ts\" \"tests/**/*.ts\" --no-error-on-unmatched-pattern --max-warnings 0",
+    "format": "prettier --write \"src/core/**/*.ts\" \"tests/**/*.ts\" --no-error-on-unmatched-pattern",
+    "format:check": "prettier --check \"src/core/**/*.ts\" \"tests/**/*.ts\" --no-error-on-unmatched-pattern",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "check": "npm run typecheck && npm run lint:core && npm run format:check && npm test"
   },
   "overrides": {
     "rolldown": "1.2.1"
@@ -79,11 +84,13 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.2.0",
+    "@vitest/coverage-v8": "^4.1.12",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "fast-check": "^4.10.2",
     "globals": "^15.15.0",
     "jsdom": "^20.0.3",
     "nitro": "3.0.260603-beta",
