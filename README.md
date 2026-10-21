@@ -1,24 +1,20 @@
-# GitHub Access Guide
+# Tripwire
 
-Can you access my GitHub?
+Change one thing. See what trips.
 
-This project was built with [Lovable](https://lovable.dev).
+Tripwire is a change-impact replanner for celebrations. When the guest count, date, budget or a vendor changes, it shows which contract deadlines, minimums and caps just tripped and proposes the smallest repairs that keep every hard limit intact.
 
-## Build with Lovable
+Status: under active development (Hack2Skill PromptWars Challenge 5).
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3a241b29-2598-4541-8506-90874decdc91).
+## Principles
+- Deterministic core: money, dates, constraints and repairs are plain TypeScript with tests.
+- LLM at the edges only: parsing, explanations and message drafts, never numbers.
+- Zero-cost stack: free tiers only; AI features degrade gracefully.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+## Run locally
+    npm install
+    npm run dev
+    npm run check
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+## Docs
+- docs/DECISIONS.md - architecture decision records
