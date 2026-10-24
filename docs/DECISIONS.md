@@ -14,3 +14,7 @@ Decision: the engine never reads the clock; every evaluation receives asOfDate. 
 
 ## ADR-005 - One repository, engine inside the Lovable project
 Context: Lovable cannot import an existing repository and syncs one branch of one repository. Decision: the engine lives in src/core of the Lovable-created repo, with lint rules that keep it framework-free; the UI is generated in Lovable; the core and gateway are built in Antigravity. Consequence: one repo, one branch, one CI pipeline.
+
+## ADR-006 - Bun as the single package manager
+Context: Lovable's toolchain uses bun. A parallel npm lockfile falls out of sync with the first dependency Lovable adds and breaks `npm ci`; `legacy-peer-deps` hid a resolver crash and also stopped peer dependencies (@testing-library/dom) from installing, which broke the UI tests. Lovable's bun.lock can reference a private Lovable mirror that is unreachable outside Lovable's network. Decision: bun is the only package manager; scripts/normalize-bun-lock.mjs rewrites the mirror host to public npm before install (idempotent, integrity hashes unchanged); CI installs with --frozen-lockfile. Consequence: one lockfile, reproducible CI, working UI tests.
+

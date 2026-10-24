@@ -9,14 +9,16 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit -p tsconfig.core.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.core.json",
     "lint:core": "eslint \"src/core/**/*.ts\" \"tests/**/*.ts\" --no-error-on-unmatched-pattern --max-warnings 0",
     "format": "prettier --write \"src/core/**/*.ts\" \"tests/**/*.ts\" --no-error-on-unmatched-pattern",
     "format:check": "prettier --check \"src/core/**/*.ts\" \"tests/**/*.ts\" --no-error-on-unmatched-pattern",
     "test": "vitest run",
+    "test:core": "vitest run --project core",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "check": "npm run typecheck && npm run lint:core && npm run format:check && npm test"
+    "check": "bun run typecheck && bun run lint:core && bun run format:check && bun run test",
+    "lock:public": "node scripts/normalize-bun-lock.mjs bun.lock"
   },
   "overrides": {
     "rolldown": "1.2.1"
@@ -84,7 +86,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.2.0",
-    "@vitest/coverage-v8": "^4.1.12",
+    "@vitest/coverage-v8": "^4.1.10",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",
@@ -98,6 +100,6 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
     "vite": "8.1.5",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.12"
   }
 }

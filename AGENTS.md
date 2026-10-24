@@ -20,8 +20,8 @@ Tripwire is a change-impact replanner for celebrations (weddings, birthdays, com
 - Accessibility: semantic HTML, labelled controls, keyboard operable, WCAG 2.2 AA contrast, never colour-only status.
 
 ## Commands
-- npm run check (typecheck + lint:core + format:check + tests; must be green before every commit, once it exists)
-- npm test | npm run test:coverage | npm run format
+- bun run check (typecheck + lint:core + format:check + tests; must be green before every commit, once it exists)
+- bun run test | bun run test:coverage | bun run format | bun run lock:public
 
 ## How to work
 - Read docs/DECISIONS.md first, and docs/DOMAIN.md when it exists.

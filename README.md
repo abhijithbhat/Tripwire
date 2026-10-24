@@ -12,9 +12,11 @@ Status: under active development (Hack2Skill PromptWars Challenge 5).
 - Zero-cost stack: free tiers only; AI features degrade gracefully.
 
 ## Run locally
-    npm install
-    npm run dev
-    npm run check
+    bun install
+    bun run dev
+    bun run check
+    bun run test:coverage
+    bun run lock:public   # after pulling Lovable changes
 
 ## Docs
 - docs/DECISIONS.md - architecture decision records
