@@ -1,3 +1,14 @@
+<!-- LOVABLE:BEGIN -->
+> [!IMPORTANT]
+> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
+> published git history — force pushing, or rebasing/amending/squashing commits
+> that are already pushed — as it rewrites history on Lovable's side and the
+> user will likely lose their project history.
+>
+> Commits you push to the connected branch sync back to Lovable and show up in
+> the editor, so keep the branch in a working state.
+<!-- LOVABLE:END -->
+
 # Tripwire - rules for AI agents (read first)
 
 Tripwire is a change-impact replanner for celebrations (weddings, birthdays, community events). When guest count, date, budget or a vendor changes, it shows which contract deadlines, minimums and caps tripped and proposes the smallest repairs that keep every hard limit intact. It is a Hack2Skill PromptWars Challenge 5 entry (deadline 1 Nov 2026, 11:59 PM IST) and a long-term portfolio project.
@@ -15,7 +26,7 @@ Tripwire is a change-impact replanner for celebrations (weddings, birthdays, com
 - TypeScript strict. No `any` (use `unknown` and narrow). Named exports only in src/core.
 - Validate all external data with Zod at the boundary.
 - Every exported function has unit tests; invariants get property tests (fast-check). Golden numbers in tests are hand-computed and must never be changed to make a test pass.
-- Files under 250 lines, small functions, JSDoc on exported functions.
+- Source files under 250 lines, test files under 400, small functions, JSDoc on exported functions.
 - No new dependency without a one-line justification in your final report.
 - Accessibility: semantic HTML, labelled controls, keyboard operable, WCAG 2.2 AA contrast, never colour-only status.
 
@@ -26,6 +37,19 @@ Tripwire is a change-impact replanner for celebrations (weddings, birthdays, com
 ## How to work
 - Read docs/DECISIONS.md first, and docs/DOMAIN.md when it exists.
 - Do exactly what the task says. If something is ambiguous, or a command fails twice, STOP and report. Do not improvise.
+- Never rewrite pushed history: no force-push, rebase, amend or squash of commits already pushed (Lovable syncs this branch).
+- At most 2 attempts per failing command, then STOP. Never read or patch files outside this repository and never add workaround flags.
 - Never claim a test passes unless you ran it and saw it pass.
 - Final report: (1) files changed, (2) commands run and their real results, (3) deviations from the task, (4) open questions.
 - Commit with Conventional Commits (feat:, fix:, test:, docs:, chore:). Never push.
+
+## UI notes carried over from Lovable's original AGENTS.md
+- Tripwire is one static page at `/` built with React + TypeScript + Tailwind v4 +
+  shadcn/ui only: no backend, database, auth, Lovable Cloud/Supabase, external API
+  calls, or analytics. Keep it that way unless asked otherwise.
+- Never load fonts or assets from the network. The type pairing comes from locally
+  available families, declared as `--font-display` in `src/styles.css`; colors come
+  from the semantic tokens in the same file, never hardcoded utilities.
+- The page keeps semantic landmarks (`header` / `main` / `footer`) and one global
+  `:focus-visible` outline; the tests in `src/test/` guard those landmarks and the
+  fixed copy, so run `bunx vitest run` after touching the page.
