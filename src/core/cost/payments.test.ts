@@ -8,6 +8,7 @@ import { GOLDEN } from '../fixtures/golden';
 import { weddingPlan } from '../fixtures/wedding-120';
 import { computePaymentTimeline } from './payments';
 import { computePlanCost } from './plan-cost';
+import { deepFreeze } from '../test-utils/deep-freeze';
 
 describe('Payment Engine', () => {
   describe('GOLDEN validation', () => {
@@ -169,14 +170,10 @@ describe('Payment Engine', () => {
     });
 
     it('is deterministic and safe on deep-frozen plans', () => {
-      const frozenPlan: Plan = Object.freeze({
-        ...weddingPlan,
-        vendors: weddingPlan.vendors.map((v) => Object.freeze({ ...v })),
-      });
-
-      const res1 = computePaymentTimeline(frozenPlan);
-      const res2 = computePaymentTimeline(frozenPlan);
-      expect(res1).toEqual(res2);
+      for (const plan of [weddingPlan, birthdayPlan, communityPlan]) {
+        const frozen = deepFreeze(structuredClone(plan));
+        expect(computePaymentTimeline(frozen)).toEqual(computePaymentTimeline(plan));
+      }
     });
   });
 });

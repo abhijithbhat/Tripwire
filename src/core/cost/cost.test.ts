@@ -8,6 +8,7 @@ import { GOLDEN } from '../fixtures/golden';
 import { weddingPlan } from '../fixtures/wedding-120';
 import { billableGuestsFor, computePlanCost, computeVendorCost, isLockActive } from './plan-cost';
 import { computeRulesCost } from './rules';
+import { deepFreeze } from '../test-utils/deep-freeze';
 
 describe('Cost Engine', () => {
   describe('GOLDEN validation', () => {
@@ -206,7 +207,7 @@ describe('Cost Engine', () => {
 
     it('is non-decreasing in guestCount for wedding plan [0, 400]', () => {
       let prev = 0;
-      for (let g = 0; g <= 400; g += 10) {
+      for (let g = 0; g <= 400; g++) {
         const cost = computePlanCost({ ...weddingPlan, guestCount: g }).total;
         expect(cost).toBeGreaterThanOrEqual(prev);
         prev = cost;
@@ -214,11 +215,10 @@ describe('Cost Engine', () => {
     });
 
     it('is deterministic and safe on deep-frozen plans', () => {
-      const frozen: Plan = Object.freeze({
-        ...weddingPlan,
-        vendors: weddingPlan.vendors.map((v) => Object.freeze({ ...v })),
-      });
-      expect(computePlanCost(frozen)).toEqual(computePlanCost(frozen));
+      for (const plan of [weddingPlan, birthdayPlan, communityPlan]) {
+        const frozen = deepFreeze(structuredClone(plan));
+        expect(computePlanCost(frozen)).toEqual(computePlanCost(plan));
+      }
     });
   });
 });
