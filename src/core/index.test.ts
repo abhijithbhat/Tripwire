@@ -3,13 +3,17 @@ import {
   CORE_VERSION,
   applyChange,
   applyChanges,
+  STATUS_SEVERITY,
   billableGuestsFor,
   computePaymentTimeline,
   computePlanCost,
   computeRulesCost,
   computeVendorCost,
+  evaluateBudgetCap,
+  evaluatePlan,
   isLockActive,
   parseChangeSet,
+  worstStatus,
 } from './index';
 
 describe('index exports', () => {
@@ -30,5 +34,12 @@ describe('index exports', () => {
     expect(typeof parseChangeSet).toBe('function');
     expect(typeof applyChange).toBe('function');
     expect(typeof applyChanges).toBe('function');
+  });
+
+  it('exports evaluate engine functions and constants', () => {
+    expect(typeof evaluatePlan).toBe('function');
+    expect(typeof worstStatus).toBe('function');
+    expect(typeof evaluateBudgetCap).toBe('function');
+    expect(STATUS_SEVERITY.TRIPPED).toBe(3);
   });
 });

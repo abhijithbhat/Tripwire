@@ -98,3 +98,25 @@ export {
   type Assumption,
   type ApplyResult,
 } from './change/apply';
+
+export {
+  STATUS_SEVERITY,
+  NEAR_BUDGET_BP,
+  NEAR_CAPACITY_BP,
+  LOCK_SOON_DAYS,
+  type TripwireStatus,
+  type TripwireKind,
+  type FactValue,
+  type Tripwire,
+  type Evaluation,
+} from './evaluate/types';
+
+export { worstStatus, evaluatePlan } from './evaluate/evaluate';
+
+export {
+  evaluateBudgetCap,
+  evaluateVenuePresent,
+  evaluateVenueCapacity,
+  evaluateGuestLocks,
+  evaluatePayments,
+} from './evaluate/tripwires';
