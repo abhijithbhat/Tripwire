@@ -111,7 +111,7 @@ export {
   type Evaluation,
 } from './evaluate/types';
 
-export { worstStatus, evaluatePlan } from './evaluate/evaluate';
+export { worstStatus, evaluatePlan, summarizeTripwires } from './evaluate/evaluate';
 
 export {
   evaluateBudgetCap,
@@ -120,3 +120,18 @@ export {
   evaluateGuestLocks,
   evaluatePayments,
 } from './evaluate/tripwires';
+
+export {
+  type DeltaChange,
+  type TripwireDelta,
+  type VendorCostDelta,
+  type PaymentChange,
+  type ChangeImpact,
+  type AssessResult,
+} from './assess/types';
+
+export { leadTimeStatus, evaluateChangeAware } from './assess/change-aware';
+
+export { diffTripwires, escalationsOf, diffVendorCosts, diffPayments } from './assess/diff';
+
+export { assessChange } from './assess/assess';

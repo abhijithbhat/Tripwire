@@ -33,6 +33,32 @@ export function worstStatus(tripwires: readonly Tripwire[]): TripwireStatus {
 }
 
 /**
+ * Summarizes a list of tripwires into counts per status and the overall worst status.
+ *
+ * @param tripwires List of tripwires to summarize.
+ * @returns Status counts and highest severity status.
+ */
+export function summarizeTripwires(tripwires: readonly Tripwire[]): {
+  counts: Record<TripwireStatus, number>;
+  worst: TripwireStatus;
+} {
+  const counts: Record<TripwireStatus, number> = {
+    OK: 0,
+    AT_RISK: 0,
+    NEEDS_VENDOR: 0,
+    TRIPPED: 0,
+  };
+
+  for (const tw of tripwires) {
+    counts[tw.status]++;
+  }
+
+  const worst = worstStatus(tripwires);
+
+  return { counts, worst };
+}
+
+/**
  * Evaluates all state-based tripwires for a plan.
  * Pure function: never mutates input, never reads the clock, deterministic.
  *
@@ -64,18 +90,7 @@ export function evaluatePlan(plan: Plan): Evaluation {
     ...paymentTws,
   ];
 
-  const counts: Record<TripwireStatus, number> = {
-    OK: 0,
-    AT_RISK: 0,
-    NEEDS_VENDOR: 0,
-    TRIPPED: 0,
-  };
-
-  for (const tw of tripwires) {
-    counts[tw.status]++;
-  }
-
-  const worst = worstStatus(tripwires);
+  const { counts, worst } = summarizeTripwires(tripwires);
 
   return {
     asOfDate: plan.asOfDate,

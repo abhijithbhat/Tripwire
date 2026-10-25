@@ -14,6 +14,14 @@ import {
   isLockActive,
   parseChangeSet,
   worstStatus,
+  summarizeTripwires,
+  leadTimeStatus,
+  evaluateChangeAware,
+  diffTripwires,
+  escalationsOf,
+  diffVendorCosts,
+  diffPayments,
+  assessChange,
 } from './index';
 
 describe('index exports', () => {
@@ -39,7 +47,18 @@ describe('index exports', () => {
   it('exports evaluate engine functions and constants', () => {
     expect(typeof evaluatePlan).toBe('function');
     expect(typeof worstStatus).toBe('function');
+    expect(typeof summarizeTripwires).toBe('function');
     expect(typeof evaluateBudgetCap).toBe('function');
     expect(STATUS_SEVERITY.TRIPPED).toBe(3);
+  });
+
+  it('exports assess engine functions', () => {
+    expect(typeof leadTimeStatus).toBe('function');
+    expect(typeof evaluateChangeAware).toBe('function');
+    expect(typeof diffTripwires).toBe('function');
+    expect(typeof escalationsOf).toBe('function');
+    expect(typeof diffVendorCosts).toBe('function');
+    expect(typeof diffPayments).toBe('function');
+    expect(typeof assessChange).toBe('function');
   });
 });
