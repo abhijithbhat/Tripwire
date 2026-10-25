@@ -79,3 +79,22 @@ export {
   type PaymentEvent,
   type PaymentTimeline,
 } from './cost/payments';
+
+export {
+  ChangeSchema,
+  ChangeSetSchema,
+  parseChangeSet,
+  type Change,
+  type ChangeSet,
+  type ChangeParseIssue,
+  type ChangeParseResult,
+} from './change/schema';
+
+export {
+  applyChange,
+  applyChanges,
+  type ApplyErrorCode,
+  type ApplyError,
+  type Assumption,
+  type ApplyResult,
+} from './change/apply';
